@@ -2,10 +2,13 @@ import { useState } from 'react';
 import '@google/model-viewer';
 import { productos } from './data';
 import { Carrito } from './Carrito';
+import logo from './assets/logo.png'; // Asegúrate de que el archivo exista
 import './App.css';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
+  const usuario = "Juanito"; // Reemplaza por tu lógica de login más adelante
 
   const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
@@ -22,12 +25,31 @@ function App() {
     });
   };
 
+  const productosFiltrados = productos.filter((p) =>
+    p.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   return (
     <div className="App">
-      <h1>Tienda 3D</h1>
+      <header className="top-bar">
+        <img src={logo} alt="Logo" className="logo" />
+        <h1>Tienda 3D</h1>
+
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className="buscador"
+        />
+        <div className="usuario">
+          <button className="boton-usuario">👤 {usuario}</button>
+        </div>
+      </header>
+
       <Carrito carrito={carrito} setCarrito={setCarrito} />
       <div className="galeria">
-        {productos.map((item) => (
+        {productosFiltrados.map((item) => (
           <div key={item.id} className="producto">
             <model-viewer
               src={item.modelo}
