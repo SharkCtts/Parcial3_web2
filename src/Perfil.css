@@ -1,0 +1,32 @@
+.perfil {
+  max-width: 400px;
+  margin: 5rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.perfil form {
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil input {
+  margin: 0.5rem 0;
+  padding: 0.7rem;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.perfil button {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

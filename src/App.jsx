@@ -1,14 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '@google/model-viewer';
 import { productos } from './data';
 import { Carrito } from './Carrito';
-import logo from './assets/logo.png'; // Asegúrate de que el archivo exista
+import logo from './assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Perfil from './Perfil';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
   const [busqueda, setBusqueda] = useState('');
-  const usuario = "Juanito"; // Reemplaza por tu lógica de login más adelante
+  const [usuario, setUsuario] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('usuario');
+    if (user) {
+      setUsuario(JSON.parse(user));
+    }
+  }, []);
+
+function AppRouter() {
+  return (
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/perfil" element={<Perfil />} />
+    </Routes>
+  );
+}
 
   const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
@@ -25,6 +45,15 @@ function App() {
     });
   };
 
+  const handleUsuarioClick = () => {
+    if (usuario) {
+      localStorage.removeItem('usuario');
+      setUsuario(null);
+    } else {
+      navigate('/perfil');
+    }
+  };
+
   const productosFiltrados = productos.filter((p) =>
     p.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
@@ -33,8 +62,6 @@ function App() {
     <div className="App">
       <header className="top-bar">
         <img src={logo} alt="Logo" className="logo" />
-        <h1>Tienda 3D</h1>
-
         <input
           type="text"
           placeholder="Buscar productos..."
@@ -43,10 +70,13 @@ function App() {
           className="buscador"
         />
         <div className="usuario">
-          <button className="boton-usuario">👤 {usuario}</button>
+          <button className="boton-usuario" onClick={handleUsuarioClick}>
+            👤 {usuario ? usuario.nombre : 'Perfil'}
+          </button>
         </div>
       </header>
 
+      <h1>Tienda 3D</h1>
       <Carrito carrito={carrito} setCarrito={setCarrito} />
       <div className="galeria">
         {productosFiltrados.map((item) => (
@@ -68,5 +98,8 @@ function App() {
     </div>
   );
 }
+
+
+
 
 export default App;
