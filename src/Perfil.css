@@ -30,3 +30,9 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+h2{
+    color:black;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}

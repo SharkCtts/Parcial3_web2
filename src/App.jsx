@@ -62,6 +62,8 @@ function AppRouter() {
     <div className="App">
       <header className="top-bar">
         <img src={logo} alt="Logo" className="logo" />
+        <h1>Tienda 3D</h1>
+
         <input
           type="text"
           placeholder="Buscar productos..."
@@ -76,7 +78,6 @@ function AppRouter() {
         </div>
       </header>
 
-      <h1>Tienda 3D</h1>
       <Carrito carrito={carrito} setCarrito={setCarrito} />
       <div className="galeria">
         {productosFiltrados.map((item) => (
