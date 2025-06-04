@@ -56,16 +56,17 @@ const agregarAlCarrito = () => {
 };
 
   const agregarAFavoritos = () => {
-    const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
-    const yaExiste = favoritos.find((item) => item.id === producto.id);
-    if (!yaExiste) {
-      favoritos.push(producto);
-      localStorage.setItem('favoritos', JSON.stringify(favoritos));
-      alert('Agregado a favoritos');
-    } else {
-      alert('Ya está en favoritos');
-    }
-  };
+  const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+  const yaExiste = favoritos.find((item) => item.id === producto.id);
+  if (!yaExiste) {
+    favoritos.push(producto);
+    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    alert('Agregado a favoritos');
+  } else {
+    alert('Ya está en favoritos');
+  }
+};
+
 
   if (!producto) return <div>Producto no encontrado</div>;
 
