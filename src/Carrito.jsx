@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 
 export function Carrito({ carrito, setCarrito }) {
-  useEffect(() => {
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-  }, [carrito]);
+
 
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 

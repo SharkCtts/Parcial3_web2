@@ -9,23 +9,25 @@ import Header from './Header';
 function App() {
   const [carrito, setCarrito] = useState([]);
   const [busqueda, setBusqueda] = useState('');
+  const [cargado, setCargado] = useState(false); // <-- aquí
+
   const navigate = useNavigate();
 
-  // Cargar carrito del localStorage al inicio
   useEffect(() => {
-    const carritoGuardado = localStorage.getItem('carrito');
-    if (carritoGuardado) {
-      setCarrito(JSON.parse(carritoGuardado));
-    }
-  }, []);
-
-  // Guardar carrito en localStorage y avisar a otros componentes cuando cambia
-  useEffect(() => {
-  if (carrito.length > 0) {
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    console.log('Guardado carrito:', carrito);
+  const carritoGuardado = localStorage.getItem('carrito');
+  if (carritoGuardado) {
+    setCarrito(JSON.parse(carritoGuardado));
   }
-}, [carrito]);
+  setCargado(true);
+}, []);
+
+useEffect(() => {
+  if (cargado) {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }
+}, [carrito, cargado]);
+
+
 
   const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
@@ -43,6 +45,8 @@ function App() {
   const productosFiltrados = productos.filter((p) =>
     p.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
+
+  
 
   return (
     <div className="App">
