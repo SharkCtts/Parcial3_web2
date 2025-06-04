@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import '@google/model-viewer';
 import { productos } from './data';
 import { Carrito } from './Carrito';
-import logo from './assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Perfil from './Perfil';
+import Header from './Header'; // importamos el header
+
 
 function App() {
   const [carrito, setCarrito] = useState([]);
@@ -60,23 +61,8 @@ function AppRouter() {
 
   return (
     <div className="App">
-      <header className="top-bar">
-        <img src={logo} alt="Logo" className="logo" />
-        <h1>Tienda 3D</h1>
+      <Header busqueda={busqueda} setBusqueda={setBusqueda} />
 
-        <input
-          type="text"
-          placeholder="Buscar productos..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          className="buscador"
-        />
-        <div className="usuario">
-          <button className="boton-usuario" onClick={handleUsuarioClick}>
-            👤 {usuario ? usuario.nombre : 'Perfil'}
-          </button>
-        </div>
-      </header>
 
       <Carrito carrito={carrito} setCarrito={setCarrito} />
       <div className="galeria">
@@ -89,6 +75,7 @@ function AppRouter() {
               camera-controls
               ar
               style={{ width: '250px', height: '250px' }}
+              onClick={() => navigate(`/producto/${item.id}`)}
             />
             <h2>{item.nombre}</h2>
             <p>${item.precio}</p>
