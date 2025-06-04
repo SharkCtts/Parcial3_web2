@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Carrito({ carrito, setCarrito }) {
-
+  const navigate = useNavigate();
 
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
@@ -11,6 +11,10 @@ export function Carrito({ carrito, setCarrito }) {
 
   const vaciarCarrito = () => {
     setCarrito([]);
+  };
+
+  const irAComprar = () => {
+    navigate('/comprar');
   };
 
   return (
@@ -30,6 +34,9 @@ export function Carrito({ carrito, setCarrito }) {
           </ul>
           <h3>Total: ${total}</h3>
           <button onClick={vaciarCarrito}>Vaciar carrito</button>
+          <button onClick={irAComprar} style={{ marginTop: '1rem', backgroundColor: '#008CBA', color: 'white' }}>
+            Ir a Comprar
+          </button>
         </>
       )}
     </div>
