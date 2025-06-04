@@ -13,9 +13,6 @@ body {
   padding: 0;
 }
 
-
-
-
 .navbar {
   background-color: #333;
   color: rgb(0, 0, 0);
@@ -152,5 +149,66 @@ button {
   margin: 0;
   font-size: 1rem;
   color: #666;
+}
+
+.botones-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative; /* Para que la lista se posicione bien */
+}
+
+.boton-favoritos, .boton-usuario {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.lista-favoritos {
+  position: absolute;
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  width: 220px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1001;
+  right: 2rem;
+  top: 60px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.lista-favoritos li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0.4rem;
+  border-bottom: 1px solid #eee;
+}
+
+.lista-favoritos li:last-child {
+  border-bottom: none;
+}
+
+.acciones-favorito button {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.acciones-favorito button:hover {
+  background-color: #4caf50;
+  color: white;
 }
 
