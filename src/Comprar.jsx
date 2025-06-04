@@ -48,22 +48,29 @@ function Comprar() {
   };
 
   const manejarSeguirComprando = () => {
-    // Guardar resumen en "factura"
-    const resumen = {
-      usuario: usuarioInfo,
-      productos: carrito,
-      total,
-      fecha: new Date().toISOString(),
-    };
-    localStorage.setItem('factura', JSON.stringify(resumen));
+  let facturasGuardadas = JSON.parse(localStorage.getItem('factura'));
 
-    // Limpiar carrito y datos de usuario
-    localStorage.removeItem('carrito');
-    localStorage.removeItem('usuario_info');
+  if (!facturasGuardadas) {
+    facturasGuardadas = [];
+  } else if (!Array.isArray(facturasGuardadas)) {
+    facturasGuardadas = [facturasGuardadas];
+  }
 
-    // Redirigir a página principal
-    navigate('/');
+  const resumen = {
+    usuario: usuarioInfo,
+    productos: carrito,
+    total,
+    fecha: new Date().toISOString(),
   };
+
+  const nuevasFacturas = [...facturasGuardadas, resumen];
+  localStorage.setItem('factura', JSON.stringify(nuevasFacturas));
+
+  localStorage.removeItem('carrito');
+  localStorage.removeItem('usuario_info');
+
+  navigate('/');
+};
 
   return (
     <div className="App">
