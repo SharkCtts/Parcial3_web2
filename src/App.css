@@ -127,3 +127,15 @@ button {
   font-weight: bold;
   font-size: 14px;
 }
+
+.producto h2 {
+  margin: 0.5rem 0 0.2rem;
+  font-size: 1.2rem;
+  color: #333
+}
+
+.producto p {
+  margin: 0;
+  font-size: 1rem;
+  color: #666;
+}
