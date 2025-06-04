@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import logo from './assets/logo.png';
 import './App.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Header({ busqueda, setBusqueda }) {
   const [usuario, setUsuario] = useState(null);
@@ -16,7 +16,6 @@ function Header({ busqueda, setBusqueda }) {
     }
   }, []);
 
-  // Carga favoritos cada vez que se abre el desplegable
   useEffect(() => {
     if (mostrarFavoritos) {
       const favs = JSON.parse(localStorage.getItem('favoritos')) || [];
@@ -43,10 +42,24 @@ function Header({ busqueda, setBusqueda }) {
     localStorage.setItem('favoritos', JSON.stringify(nuevosFavoritos));
   };
 
+  const irAFacturas = () => {
+    navigate('/facturas');
+  };
+
   return (
     <header className="top-bar">
-      <img src={logo} alt="Logo" className="logo" />
-      <h1>Tienda 3D</h1>
+      <Link
+        to="/"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          textDecoration: 'none',
+          color: 'inherit',
+        }}
+      >
+        <img src={logo} alt="Logo" className="logo" />
+        <h1>Tienda 3D</h1>
+      </Link>
 
       <input
         type="text"
@@ -59,6 +72,14 @@ function Header({ busqueda, setBusqueda }) {
       <div className="botones-header">
         <button className="boton-favoritos" onClick={toggleFavoritos}>
           ⭐ Favoritos
+        </button>
+
+        <button
+          className="boton-facturas"
+          onClick={irAFacturas}
+          style={{ backgroundColor: '#ff9800', marginLeft: '8px' }}
+        >
+          📄 Facturas
         </button>
 
         <button className="boton-usuario" onClick={handleUsuarioClick}>

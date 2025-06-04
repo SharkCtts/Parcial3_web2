@@ -6,6 +6,8 @@ import Perfil from './Perfil.jsx';
 import DetalleProducto from './DetalleProducto.jsx';
 import './index.css';
 import Comprar from './Comprar.jsx';
+import Facturas from './Facturas.jsx';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,6 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/producto/:id" element={<DetalleProducto />} />
         <Route path="/comprar" element={<Comprar />} />
+        <Route path="/facturas" element={<Facturas />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
