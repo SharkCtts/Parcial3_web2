@@ -4,55 +4,40 @@ import { productos } from './data';
 import { Carrito } from './Carrito';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Perfil from './Perfil';
-import Header from './Header'; // importamos el header
-
+import Header from './Header';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
   const [busqueda, setBusqueda] = useState('');
-  const [usuario, setUsuario] = useState(null);
   const navigate = useNavigate();
 
+  // Cargar carrito del localStorage al inicio
   useEffect(() => {
-    const user = localStorage.getItem('usuario');
-    if (user) {
-      setUsuario(JSON.parse(user));
+    const carritoGuardado = localStorage.getItem('carrito');
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
     }
   }, []);
 
-function AppRouter() {
-  return (
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/perfil" element={<Perfil />} />
-    </Routes>
-  );
-}
+  // Guardar carrito en localStorage y avisar a otros componentes cuando cambia
+  useEffect(() => {
+  if (carrito.length > 0) {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    console.log('Guardado carrito:', carrito);
+  }
+}, [carrito]);
 
   const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
       const existe = prev.find((item) => item.id === producto.id);
       if (existe) {
         return prev.map((item) =>
-          item.id === producto.id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item
+          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
         );
       } else {
         return [...prev, { ...producto, cantidad: 1 }];
       }
     });
-  };
-
-  const handleUsuarioClick = () => {
-    if (usuario) {
-      localStorage.removeItem('usuario');
-      setUsuario(null);
-    } else {
-      navigate('/perfil');
-    }
   };
 
   const productosFiltrados = productos.filter((p) =>
@@ -62,8 +47,6 @@ function AppRouter() {
   return (
     <div className="App">
       <Header busqueda={busqueda} setBusqueda={setBusqueda} />
-
-
       <Carrito carrito={carrito} setCarrito={setCarrito} />
       <div className="galeria">
         {productosFiltrados.map((item) => (
@@ -86,8 +69,5 @@ function AppRouter() {
     </div>
   );
 }
-
-
-
 
 export default App;

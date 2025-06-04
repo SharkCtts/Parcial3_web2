@@ -1,8 +1,18 @@
+import { useEffect } from 'react';
+
 export function Carrito({ carrito, setCarrito }) {
+  useEffect(() => {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }, [carrito]);
+
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
 
   const remover = (id) => {
     setCarrito(carrito.filter(item => item.id !== id));
+  };
+
+  const vaciarCarrito = () => {
+    setCarrito([]);
   };
 
   return (
@@ -21,6 +31,7 @@ export function Carrito({ carrito, setCarrito }) {
             ))}
           </ul>
           <h3>Total: ${total}</h3>
+          <button onClick={vaciarCarrito}>Vaciar carrito</button>
         </>
       )}
     </div>
