@@ -36,3 +36,15 @@ h2{
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
 }
+
+@media (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .producto {
+    font-size: 14px;
+    width: 100%;
+  }
+}

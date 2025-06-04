@@ -227,3 +227,15 @@ li{
 h3{
   color: black;
 }
+
+@media (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .producto {
+    font-size: 14px;
+    width: 100%;
+  }
+}
